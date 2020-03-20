@@ -1,11 +1,14 @@
 import random
 
+# Variables globales
+jugador = ""
+
 # Divide la lista en 'n' partes
 def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i+n]
 
-# Crea las 9 lista de números
+# Crea las 9 listas de números
 def crear_lista():
     lista = []
     for i in range(9):
@@ -20,7 +23,6 @@ def random_lista(lista):
     for i in range(len(lista)):
         for j in range(len(lista[i])):
             random.shuffle(lista[i])
-    #print(str(lista))
 
 # Rehacer la matriz (cuadrada)
 def rehacer_matriz(matriz):
@@ -55,19 +57,8 @@ def reordernar_lista(lista):
             listaB.append(lista[i])
         elif (i == 2 or i == 5 or i == 8):
             listaC.append(lista[i])
-    
-    """
-    print("LISTA A")
-    print(str(listaA))
-    print("LISTA B")
-    print(str(listaB))
-    print("LISTA C")
-    print(str(listaC))
-    """
-    
-    #print("************")
+
     listaD = listaA + listaB + listaC
-    #print(str(listaD))
     return listaD
     
 # Dibuja la matriz (cuadrada)
@@ -91,28 +82,22 @@ def crear_matriz(matriz):
                 
         print(fila)
 
-# Asignamos una lista
+# Asignamos una lista y hacemos un split a la lista para tener una lista de listas, es decir, nuestra matriz
 lista_original = crear_lista()
-
-# Hacemos un split a la lista para tener una lista de listas, es decir, nuestra matriz
 lista = list(chunks(lista_original, 9))
-#print(str(lista))
-
 
 # GAME
 print("¡BIENVENIDO AL SODOKU! \n" )
+jugador += input("Introduzce tu nombre: ")
 
 while True:
-    esJugable = False
+    #esJugable = False
     
-    random_lista(lista)
-    temp = rehacer_matriz(lista)
-    temp2 = list(chunks(temp, 9))
-    #print("Rehacer lista")
-    #print(str(temp2))
-    #print("Reordenar")
-    matriz = reordernar_lista(temp2)
-    crear_matriz(matriz)
+    #random_lista(lista) # Hacemos un random a todas las sublistas
+    ordenar_vertical = rehacer_matriz(lista) # Reacomodamos la matriz verticalmente
+    temp = list(chunks(ordenar_vertical, 9)) # Volvemos a dividirla 
+    lista_matriz = reordernar_lista(temp) # Reordena los valores correctamente en las sublistas
+    crear_matriz(lista_matriz) # Dibuja la matriz
     
     
     ###########COMPARACIONES
